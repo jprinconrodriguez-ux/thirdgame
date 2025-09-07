@@ -56,19 +56,6 @@ local function penalty_for_threshold(t, hand_name)
   end
 end
 
-  local p2 = math.ceil(p1 * 2.25) -- T2
-  if t == 2 then return p2 end
-  -- T3+ (we can keep compounding by 2.25; lock design later if needed)
-  local p3 = math.ceil(p2 * 2.25)
-  if t == 3 then return p3 end
-  -- Endless: continue compounding
-  local cur = p3
-  for k=4, t do
-    cur = math.ceil(cur * 2.25)
-  end
-  return cur
-end
-
 function M.apply_award(S, hand_name)
   local t = clamp_threshold(S.meta.threshold)
   local pts = M.get_award(t, hand_name)
